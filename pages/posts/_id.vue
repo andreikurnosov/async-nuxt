@@ -25,9 +25,13 @@ export default {
       id: this.$route.params.id,
     }
   },
-  async asyncData ({params, $axios}) {
-    let post = await $axios.$get(`posts/${params.id}`)
-    return {post}
+  async fetch ({store, params}) {
+    await store.dispatch('posts/fetchPost', params.id)
+  },
+  computed: {
+    post () {
+      return this.$store.state.posts.all.find(post => post.id === Number(this.id))
+    }
   }
 }
 </script>
