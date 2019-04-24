@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   head () {
     return {
@@ -26,9 +25,9 @@ export default {
       id: this.$route.params.id,
     }
   },
-  async asyncData (context) {
-    let response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${context.params.id}`)
-    return {post: response.data}
+  async asyncData ({params, $axios}) {
+    let post = await $axios.$get(`posts/${params.id}`)
+    return {post}
   }
 }
 </script>
