@@ -2,21 +2,15 @@
   <section class="container">
     <div>
       <logo/>
-      <h1 class="title">
-        nuxt-async
-      </h1>
-      <h2 class="subtitle">
-        My gnarly Nuxt.js project
-      </h2>
+      <h1 class="title">nuxt-async</h1>
+      <h2 class="subtitle">My gnarly Nuxt.js project</h2>
       <div class="links">
         <nuxt-link
           v-for="post in posts"
           :to="{name: 'posts-id', params: {id: post.id}}"
           :key="post.id"
           class="button--grey"
-        >
-          {{post.title}}
-        </nuxt-link>
+        >{{post.title}}</nuxt-link>
       </div>
     </div>
   </section>
@@ -34,24 +28,18 @@ export default {
     return {
       title: 'Home Page 🍕',
       meta: [
-        { name: 'twitter:title', content: 'Nuxt Async by Vue School'},
-        { name: 'twitter:description', content: 'Nuxt + Vue School = 🍕'},
-        { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png'},
-        { name: 'twitter:card', content: 'summary_large_image'}
+        { name: 'twitter:title', content: 'Nuxt Async by Vue School' },
+        { name: 'twitter:description', content: 'Nuxt + Vue School = 🍕' },
+        { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png' },
+        { name: 'twitter:card', content: 'summary_large_image' }
       ]
     }
   },
-  data  () {
-    return {
-      posts: []
-    }
-  },
-  mounted () {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        this.posts = res.data
-      })
+  async asyncData () {
+    let response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    return {posts: response.data}
   }
+
 }
 </script>
 
@@ -63,8 +51,8 @@ export default {
   text-align: center;
 }
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
