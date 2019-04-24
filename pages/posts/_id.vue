@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     head () {
       return {
@@ -27,11 +28,9 @@
       }
     },
     mounted () {
-      fetch(`https://jsonplaceholder.typicode.com/posts/${this.id}`)
+      axios.get(`https://jsonplaceholder.typicode.com/posts/${this.id}`)
         .then(res => {
-          res.json().then(post => {
-            this.post = post
-          })
+          this.post = res.data
         })
     }
   }
